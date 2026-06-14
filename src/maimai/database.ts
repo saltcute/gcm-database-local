@@ -2,7 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { Cache } from "@lib/cache";
 import { getInternalLevelFromPresences } from "@lib/getInternalLevelFromPresences";
-import type { Database as BaseDatabase, Difficulty, Type } from "gcm-database/maimai";
+import type {
+    Database as BaseDatabase,
+    Difficulty,
+    Type,
+} from "gcm-database/maimai";
 import type { Chart } from "./chart";
 
 export class Database implements BaseDatabase<Chart> {
