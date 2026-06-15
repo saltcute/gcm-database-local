@@ -37,4 +37,4 @@ export interface Version {
 }
 
 export type Regions = "JPN";
-export type ByRegion<T> = Record<Regions, T>;
+export type ByRegion<T> = Partial<Record<Regions, T>>;
