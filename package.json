@@ -1,6 +1,6 @@
 {
     "name": "gcm-database-local",
-    "version": "0.0.5",
+    "version": "1.0.0",
     "description": "A GekiChuMai Metadata database",
     "homepage": "https://github.com/saltcute/gcm-database-local#readme",
     "bugs": {
