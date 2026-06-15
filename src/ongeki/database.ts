@@ -151,28 +151,68 @@ export class Database implements BaseDatabase<Chart> {
         return { data: sortedCandidates.slice(options?.maxResultCount || 20) };
     }
     public async getBossCard(chart: Chart) {
-        const identifier = chart.boss.character.card;
-        const cacheKey = `boss-card-${identifier}`;
-        const cached = await this.cache.get(cacheKey);
-        if (cached instanceof Buffer) {
-            this.logger.trace(`GET Card-${identifier}-image, cache HIT`);
-            return { data: cached };
-        } else {
-            this.logger.trace(`GET Card-${identifier}-image, cache MISS`);
-            const localFilePath = path.join(
-                this._localDatabasePath,
-                "assets",
-                "ongeki",
-                "cards",
-                "images",
-                `${identifier.padStart(6, "0")}.png`,
-            );
-            if (fs.existsSync(localFilePath)) {
-                this.logger.trace(`GET Card-${identifier}-image, database HIT`);
-                const card = fs.readFileSync(localFilePath);
-                if (card) this.cache.put(cacheKey, card, 5 * 1000); // 5 seconds
-                return { data: card };
+        return this.getCardImage(chart.boss.character.card);
+    }
+    public async getCharacter(identifier: string) {
+        const localFilePath = path.join(
+            this._localDatabasePath,
+            "assets",
+            "ongeki",
+            "characters",
+            `${identifier.padStart(6, "0")}`,
+            `${identifier.padStart(6, "0")}.json`,
+        );
+        if (fs.existsSync(localFilePath)) {
+            try {
+                return {
+                    data: JSON.parse(fs.readFileSync(localFilePath, "utf-8")),
+                };
+            } catch {
+                return {
+                    err: `Failed to parse ${identifier}.`,
+                };
             }
+        }
+        return {
+            err: `Cannot find a character with identifier ${identifier}.`,
+        };
+    }
+    public async getCard(identifier: string) {
+        const localFilePath = path.join(
+            this._localDatabasePath,
+            "assets",
+            "ongeki",
+            "cards",
+            `${identifier.padStart(6, "0")}`,
+            `${identifier.padStart(6, "0")}.json`,
+        );
+        if (fs.existsSync(localFilePath)) {
+            try {
+                return {
+                    data: JSON.parse(fs.readFileSync(localFilePath, "utf-8")),
+                };
+            } catch {
+                return {
+                    err: `Failed to parse ${identifier}.`,
+                };
+            }
+        }
+        return {
+            err: `Cannot find a card with identifier ${identifier}.`,
+        };
+    }
+    public async getCardImage(identifier: string) {
+        const localFilePath = path.join(
+            this._localDatabasePath,
+            "assets",
+            "ongeki",
+            "cards",
+            "images",
+            `${identifier.padStart(6, "0")}.png`,
+        );
+        if (fs.existsSync(localFilePath)) {
+            const card = fs.readFileSync(localFilePath);
+            return { data: card };
         }
         return { err: "Cannot find the card of this character." };
     }
