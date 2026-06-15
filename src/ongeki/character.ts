@@ -17,7 +17,7 @@ export interface Card {
     attribute: Attribute;
 }
 export interface Character {
-    id: number;
+    identifier: number;
     name: string;
     voiceLines: string[];
     bloodType: BloodType;
