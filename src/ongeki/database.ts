@@ -2,14 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { Cache } from "@lib/cache";
 import { getInternalLevelFromPresences } from "@lib/getInternalLevelFromPresences";
-import { logger } from "@lib/logger";
 import type { Database as BaseDatabase, Difficulty } from "gcm-database/ongeki";
 import type { Chart } from "./chart";
 
 export class Database implements BaseDatabase<Chart> {
-    private readonly logger = logger
-        .child()
-        .withGroup("gcm-database-local/ongeki");
     constructor(private _localDatabasePath: string) {}
 
     public setLocalDatabasePath(path: string) {
