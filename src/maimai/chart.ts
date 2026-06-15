@@ -2,7 +2,7 @@ import type { Chart as BaseChart } from "gcm-database/maimai";
 import type { Presences } from "./presence";
 
 export interface Chart extends BaseChart {
-    optionalData: Partial<{
+    optionalData: {
         bpm: number[];
         notes: {
             tap: number;
@@ -16,5 +16,5 @@ export interface Chart extends BaseChart {
             name: string;
         };
         presences: Presences[];
-    }>;
+    };
 }
