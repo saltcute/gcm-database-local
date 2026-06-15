@@ -33,5 +33,8 @@ export interface Version {
         minor: number;
         release?: number;
     };
-    region: "JPN";
+    region: Regions;
 }
+
+export type Regions = "JPN";
+export type ByRegion<T> = Record<Regions, T>;

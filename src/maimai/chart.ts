@@ -1,5 +1,5 @@
 import type { Chart as BaseChart } from "gcm-database/maimai";
-import type { Presences, Version } from "./presence";
+import type { ByRegion, Presences, Version } from "./presence";
 
 export interface Chart extends BaseChart {
     optionalData: {
@@ -17,15 +17,15 @@ export interface Chart extends BaseChart {
         };
         presences: Presences[];
         version: {
-            displayVersion: Version;
+            displayVersion: ByRegion<Version>;
             /**
              * Exist when a Re:Master chart is added later than the other difficulies.
              */
-            actualReleaseVersion?: Version;
+            actualReleaseVersion?: ByRegion<Version>;
         };
         /**
          * yyyy-mm-dd date of when this chart became available.
          */
-        addDate?: string;
+        addDate?: ByRegion<string>;
     };
 }

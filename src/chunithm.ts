@@ -4,6 +4,7 @@ export {
     Absence,
     Existence,
     Presences,
+    Regions,
     Removal,
     Version,
 } from "@chunithm/presence";

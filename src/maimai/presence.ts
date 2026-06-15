@@ -49,5 +49,8 @@ export interface Version {
     /**
      * Events before maimai DX is always `DX`
      */
-    region: "DX" | "EX" | "CN";
+    region: Regions;
 }
+
+export type Regions = "DX" | "EX" | "CN";
+export type ByRegion<T> = Record<Regions, T>;
