@@ -24,5 +24,9 @@ export interface Chart extends BaseChart {
          * yyyy-mm-dd date of when this chart became available.
          */
         addDate?: ByRegion<string>;
+        remaster?: {
+            baseDifficultyIdentifier: string;
+            actualIdentifier: string;
+        };
     };
 }
