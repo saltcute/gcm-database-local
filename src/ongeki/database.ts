@@ -68,15 +68,10 @@ export class Database implements BaseDatabase<Chart> {
             identifier.padStart(4, "0"),
             `${difficulty}.json`,
         );
-        if (fs.existsSync(path.join(localFilePath, difficulty))) {
+        if (fs.existsSync(localFilePath)) {
             try {
                 return {
-                    data: JSON.parse(
-                        fs.readFileSync(
-                            path.join(localFilePath, difficulty),
-                            "utf-8",
-                        ),
-                    ),
+                    data: JSON.parse(fs.readFileSync(localFilePath, "utf-8")),
                 };
             } catch {
                 return {
