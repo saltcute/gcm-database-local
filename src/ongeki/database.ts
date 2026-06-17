@@ -65,7 +65,8 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "charts",
-            `${identifier.padStart(4, "0")}.json`,
+            identifier.padStart(4, "0"),
+            `${difficulty}.json`,
         );
         if (fs.existsSync(path.join(localFilePath, difficulty))) {
             try {
@@ -155,6 +156,7 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "characters",
+            identifier.padStart(6, "0"),
             `${identifier.padStart(6, "0")}.json`,
         );
         if (fs.existsSync(localFilePath)) {
@@ -178,6 +180,7 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "cards",
+            identifier.padStart(6, "0"),
             `${identifier.padStart(6, "0")}.json`,
         );
         if (fs.existsSync(localFilePath)) {

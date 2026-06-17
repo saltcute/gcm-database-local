@@ -68,7 +68,8 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "chunithm",
             "charts",
-            `${identifier.padStart(4, "0")}.json`,
+            identifier.padStart(4, "0"),
+            `${difficulty}.json`
         );
         if (fs.existsSync(path.join(localFilePath, difficulty))) {
             try {
