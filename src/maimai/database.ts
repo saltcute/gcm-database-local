@@ -69,7 +69,7 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "maimai",
             "charts",
-            `${identifier.padStart(6, "0")}`,
+            `${identifier.padStart(6, "0")}.json`,
         );
         if (fs.existsSync(path.join(localFilePath, difficulty))) {
             try {

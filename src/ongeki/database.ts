@@ -35,7 +35,7 @@ export class Database implements BaseDatabase<Chart> {
                     "assets",
                     "ongeki",
                     "jackets",
-                    `${songId.padStart(6, "0")}-${variant}.png`,
+                    `${songId.padStart(4, "0")}-${variant}.png`,
                 );
                 if (fs.existsSync(localFilePath)) {
                     return { data: fs.readFileSync(localFilePath) };
@@ -47,7 +47,7 @@ export class Database implements BaseDatabase<Chart> {
                 "assets",
                 "ongeki",
                 "jackets",
-                `${songId.padStart(6, "0")}.png`,
+                `${songId.padStart(4, "0")}.png`,
             );
             const jacket =
                 fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
@@ -65,7 +65,7 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "charts",
-            `${identifier.padStart(6, "0")}`,
+            `${identifier.padStart(4, "0")}.json`,
         );
         if (fs.existsSync(path.join(localFilePath, difficulty))) {
             try {
@@ -155,7 +155,6 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "characters",
-            `${identifier.padStart(6, "0")}`,
             `${identifier.padStart(6, "0")}.json`,
         );
         if (fs.existsSync(localFilePath)) {
@@ -179,7 +178,6 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "ongeki",
             "cards",
-            `${identifier.padStart(6, "0")}`,
             `${identifier.padStart(6, "0")}.json`,
         );
         if (fs.existsSync(localFilePath)) {

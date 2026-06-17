@@ -50,7 +50,7 @@ export class Database implements BaseDatabase<Chart> {
                 "assets",
                 "chunithm",
                 "jackets",
-                `${songId.padStart(6, "0")}.png`,
+                `${songId.padStart(4, "0")}.png`,
             );
             const jacket =
                 fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
@@ -68,7 +68,7 @@ export class Database implements BaseDatabase<Chart> {
             "assets",
             "chunithm",
             "charts",
-            `${identifier.padStart(6, "0")}`,
+            `${identifier.padStart(4, "0")}.json`,
         );
         if (fs.existsSync(path.join(localFilePath, difficulty))) {
             try {
