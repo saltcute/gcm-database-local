@@ -3,15 +3,6 @@ import type { ByRegion, Presences, Version } from "./presence";
 
 export interface Chart extends BaseChart {
     optionalData: {
-        bpm: number[];
-        notes: {
-            tap: number;
-            hold: number;
-            side: number;
-            flick: number;
-            bell: number;
-        };
-        designer: string;
         presences: Presences[];
         version: {
             displayVersion: ByRegion<Version>;
