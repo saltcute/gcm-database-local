@@ -46,6 +46,6 @@
         "redis": "^6.0.0"
     },
     "peerDependencies": {
-        "gcm-database": "^1.0.0"
+        "gcm-database": "^1.0.3"
     }
 }
