@@ -148,6 +148,6 @@ export class Database implements BaseDatabase<Chart> {
             })
             .filter((v): v is { chart: Chart; weight: number } => !!v.weight)
             .sort((a, b) => a.weight - b.weight);
-        return { data: sortedCandidates.slice(options?.maxResultCount || 20) };
+        return { data: sortedCandidates.slice(0, options?.maxResultCount || 20) };
     }
 }
