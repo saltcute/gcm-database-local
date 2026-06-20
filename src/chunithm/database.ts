@@ -74,7 +74,9 @@ export class Database implements BaseDatabase<Chart> {
         if (fs.existsSync(localFilePath)) {
             try {
                 return {
-                    data: JSON.parse(fs.readFileSync(localFilePath, "utf-8")),
+                    data: JSON.parse(
+                        fs.readFileSync(localFilePath, "utf-8"),
+                    ) as Chart,
                 };
             } catch {
                 return {
@@ -143,6 +145,8 @@ export class Database implements BaseDatabase<Chart> {
             })
             .filter((v): v is { chart: Chart; weight: number } => !!v.weight)
             .sort((a, b) => a.weight - b.weight);
-        return { data: sortedCandidates.slice(0,options?.maxResultCount || 20) };
+        return {
+            data: sortedCandidates.slice(0, options?.maxResultCount || 20),
+        };
     }
 }

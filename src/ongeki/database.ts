@@ -71,7 +71,9 @@ export class Database implements BaseDatabase<Chart> {
         if (fs.existsSync(localFilePath)) {
             try {
                 return {
-                    data: JSON.parse(fs.readFileSync(localFilePath, "utf-8")),
+                    data: JSON.parse(
+                        fs.readFileSync(localFilePath, "utf-8"),
+                    ) as Chart,
                 };
             } catch {
                 return {
