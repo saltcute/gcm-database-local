@@ -123,20 +123,18 @@ export class Database implements BaseDatabase<Chart> {
                     v.difficulty === payload.difficulty,
             )
             .map((v) => {
-                if (v.optionalData.presences) {
-                    const internalLevel = getInternalLevelFromPresences(
-                        v.optionalData.presences,
-                    );
-                    if (internalLevel) {
-                        return {
-                            chart: v,
-                            weight: Math.abs(internalLevel - payload.level),
-                        };
-                    }
+                const internalLevel =
+                    v.internalLevel ??
+                    getInternalLevelFromPresences(v.optionalData.presences);
+                if (internalLevel) {
+                    return {
+                        chart: v,
+                        weight: Math.abs(internalLevel - payload.level),
+                    };
                 }
                 return { chart: v };
             })
-            .filter((v): v is { chart: Chart; weight: number } => !!v.weight)
+            .filter((v): v is { chart: Chart; weight: number } => "weight" in v)
             .sort((a, b) => a.weight - b.weight);
         return {
             data: sortedCandidates.slice(0, options?.maxResultCount || 20),
