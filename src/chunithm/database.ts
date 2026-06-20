@@ -26,40 +26,33 @@ export class Database implements BaseDatabase<Chart> {
 
     private cache = new Cache("gcm-database-local/chunithm");
     public async getJacket(identifier: string, variant?: "DX" | "EX" | "CN") {
-        const cacheKey = `jacket-${identifier}${variant ? `-${variant}` : ""}`;
-        const cached = await this.cache.get(cacheKey);
-        if (cached instanceof Buffer) {
-            return { data: cached };
-        } else {
-            const songId = identifier.slice(-4);
-            if (variant) {
-                const localFilePath = path.join(
-                    this._localDatabasePath,
-                    "assets",
-                    "chunithm",
-                    "jackets",
-                    `${songId.padStart(6, "0")}-${variant}.png`,
-                );
-                if (fs.existsSync(localFilePath)) {
-                    return { data: fs.readFileSync(localFilePath) };
-                }
-            }
-            // Falls back to normal jacket if a variant cannot be found.
+        const songId = identifier.slice(-4);
+        if (variant) {
             const localFilePath = path.join(
                 this._localDatabasePath,
                 "assets",
                 "chunithm",
                 "jackets",
-                `${songId.padStart(4, "0")}.png`,
+                `${songId.padStart(6, "0")}-${variant}.png`,
             );
-            const jacket =
-                fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
-            if (jacket) {
-                this.cache.put(cacheKey, jacket, 5 * 1000); // 5 seconds.
-                return { data: jacket };
-            } else {
-                return { err: `Cannot find the jacket of ${identifier}.` };
+            if (fs.existsSync(localFilePath)) {
+                return { data: fs.readFileSync(localFilePath) };
             }
+        }
+        // Falls back to normal jacket if a variant cannot be found.
+        const localFilePath = path.join(
+            this._localDatabasePath,
+            "assets",
+            "chunithm",
+            "jackets",
+            `${songId.padStart(4, "0")}.png`,
+        );
+        const jacket =
+            fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
+        if (jacket) {
+            return { data: jacket };
+        } else {
+            return { err: `Cannot find the jacket of ${identifier}.` };
         }
     }
     public async getChart(identifier: string, difficulty: Difficulty) {
