@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { Cache } from "@lib/cache";
 import { getInternalLevelFromPresences } from "@lib/getInternalLevelFromPresences";
+import { Cache } from "@saltcute/cache";
 import type { Database as BaseDatabase, Difficulty } from "gcm-database/ongeki";
 import type { Chart } from "./chart";
 

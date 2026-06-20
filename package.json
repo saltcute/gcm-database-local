@@ -37,15 +37,10 @@
         "tsc-alias": "^1.8.17",
         "typescript": "^6.0.3"
     },
-    "dependencies": {
-        "@loglayer/log-level-manager-global": "^2.2.0",
-        "@loglayer/transport-pino": "^3.2.0",
-        "loglayer": "^9.3.0",
-        "memory-cache": "^0.2.0",
-        "pino": "^10.3.1",
-        "redis": "^6.0.0"
-    },
     "peerDependencies": {
         "gcm-database": "^1.0.3"
+    },
+    "dependencies": {
+        "@saltcute/cache": "^1.0.2"
     }
 }
