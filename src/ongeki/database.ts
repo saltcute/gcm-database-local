@@ -23,26 +23,21 @@ export class Database implements BaseDatabase<Chart> {
 
     private cache = new Cache("gcm-database-local/ongeki");
     public async getJacket(identifier: string, variant?: "DX" | "EX" | "CN") {
-        const songId = identifier.slice(-4);
-        if (variant) {
-            const localFilePath = path.join(
-                this._localDatabasePath,
-                "assets",
-                "ongeki",
-                "jackets",
-                `${songId.padStart(4, "0")}-${variant}.png`,
-            );
-            if (fs.existsSync(localFilePath)) {
-                return { data: fs.readFileSync(localFilePath) };
+        if (identifier !== "dummy") {
+            const songId = identifier.slice(-4);
+            if (variant) {
+                identifier = `${songId.padStart(4, "0")}-${variant}`;
+            } else {
+                // Falls back to normal jacket if a variant cannot be found.
+                identifier = `${songId.padStart(4, "0")}`;
             }
         }
-        // Falls back to normal jacket if a variant cannot be found.
         const localFilePath = path.join(
             this._localDatabasePath,
             "assets",
             "ongeki",
             "jackets",
-            `${songId.padStart(4, "0")}.png`,
+            `${identifier}.png`,
         );
         const jacket =
             fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
