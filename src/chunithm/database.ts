@@ -25,23 +25,30 @@ export class Database implements BaseDatabase<Chart> {
     }
 
     private cache = new Cache("gcm-database-local/chunithm");
-    public async getJacket(identifier: string, variant?: "DX" | "EX" | "CN") {
-        if (identifier !== "dummy") {
-            const songId = identifier.slice(-4);
-            if (variant) {
-                identifier = `${songId.padStart(4, "0")}-${variant}`;
-            } else {
-                // Falls back to normal jacket if a variant cannot be found.
-                identifier = `${songId.padStart(4, "0")}`;
-            }
-        }
-        const localFilePath = path.join(
+    private getLocalFilePath(identifier: string) {
+        return path.join(
             this._localDatabasePath,
             "assets",
             "chunithm",
             "jackets",
             `${identifier}.png`,
         );
+    }
+    public async getJacket(identifier: string, variant?: "DX" | "EX" | "CN") {
+        if (identifier !== "dummy") {
+            const songId = identifier.slice(-4);
+            const variantIdentifier = `${songId.padStart(4, "0")}-${variant}`;
+            if (
+                variant &&
+                fs.existsSync(this.getLocalFilePath(variantIdentifier))
+            ) {
+                identifier = variantIdentifier;
+            } else {
+                // Falls back to normal jacket if a variant cannot be found.
+                identifier = `${songId.padStart(4, "0")}`;
+            }
+        }
+        const localFilePath = this.getLocalFilePath(identifier);
         const jacket =
             fs.existsSync(localFilePath) && fs.readFileSync(localFilePath);
         if (jacket) {
